@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>S&H</title>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+  <link rel="icon" href="https://em-content.zobj.net/source/apple/225/heavy-black-heart_2764.png" type="image/png">
+  <style>
+    body {
+      margin: 0;
+      background-color: #111;
+      font-family: 'Press Start 2P', monospace;
+      color: white;
+      overflow: hidden;
+    }
+
+    .container {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .character {
+  position: absolute;
+  bottom: 5%;
+  width: 140px;
+  opacity: 0;
+  transition: transform 2s ease, opacity 1s ease;
+  z-index: 2;
+}
+.left {
+  left: -150px;
+}
+.right {
+  right: -150px;
+}
+
+
+    .left { left: -200px; }
+    .right { right: -200px; }
+
+.hug .left {
+  animation: leftHug 2s forwards ease-in-out;
+}
+
+.hug .right {
+  animation: rightHug 2s forwards ease-in-out;
+}
+
+@keyframes leftHug {
+  0% {
+    transform: translateX(0) scale(1);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(320px) scale(1.05);
+    opacity: 1;
+  }
+}
+
+@keyframes rightHug {
+  0% {
+    transform: translateX(0) scale(1);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(-320px) scale(1.05);
+    opacity: 1;
+  }
+}
+
+
+
+    .title {
+      position: absolute;
+      top: 20%;
+      width: 100%;
+      text-align: center;
+      font-size: 2em;
+      opacity: 0;
+      white-space: nowrap;
+      overflow: hidden;
+      border-right: 2px solid white;
+      animation: fadeIn 0.5s ease forwards;
+      animation-delay: 2s;
+      text-shadow: 2px 2px #000;
+    }
+
+    .subtitle {
+      position: absolute;
+      top: 28%;
+      width: 100%;
+      text-align: center;
+      font-size: 1em;
+      opacity: 0;
+      animation: fadeIn 2s ease forwards;
+      animation-delay: 5s;
+      text-shadow: 1px 1px #000;
+    }
+
+    @keyframes fadeIn { to { opacity: 1; } }
+
+    @keyframes pulseGlow {
+      0% {
+        transform: translateX(-50%) scale(1);
+        box-shadow: 0 0 10px #ff4d6d, 0 0 20px #ff4d6d;
+      }
+      50% {
+        transform: translateX(-50%) scale(1.05);
+        box-shadow: 0 0 20px #ff4d6d, 0 0 40px #ff4d6d;
+      }
+      100% {
+        transform: translateX(-50%) scale(1);
+        box-shadow: 0 0 10px #ff4d6d, 0 0 20px #ff4d6d;
+      }
+    }
+
+    .enter-button {
+      position: absolute;
+      top: 40%;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: #e63946;
+      color: white;
+      border: none;
+      font-family: 'Press Start 2P', monospace;
+      padding: 15px 30px;
+      cursor: pointer;
+      font-size: 0.8em;
+      clip-path: polygon(
+        50% 0%, 61% 10%, 75% 10%, 90% 25%,
+        90% 45%, 50% 90%, 10% 45%, 10% 25%,
+        25% 10%, 39% 10%
+      );
+      opacity: 0;
+      animation: fadeIn 2s ease forwards 6.5s, pulseGlow 2s infinite ease-in-out 7s;
+    }
+
+    /* Modal */
+    .modal {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      background-color: rgba(0,0,0,0.85);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 10;
+      display: none;
+    }
+
+    .modal-content {
+      background-color: #222;
+      padding: 40px;
+      border-radius: 12px;
+      text-align: center;
+      box-shadow: 0 0 20px #ff4d6d;
+    }
+
+    .modal-content h2 {
+      margin-bottom: 30px;
+      font-size: 1em;
+    }
+
+    .modal-content button {
+      background-color: #ff4d6d;
+      border: none;
+      color: white;
+      padding: 10px 20px;
+      margin: 10px;
+      font-family: 'Press Start 2P', monospace;
+      cursor: pointer;
+    }
+
+    /* Corações */
+    .heart {
+      position: absolute;
+      width: 30px;
+      height: 30px;
+      background-image: url('https://em-content.zobj.net/source/apple/225/heavy-black-heart_2764.png');
+      background-size: cover;
+      animation: fall 5s linear infinite;
+    }
+
+    @keyframes fall {
+      0% { transform: translateY(-100px) rotate(0deg); opacity: 1; }
+      100% { transform: translateY(120vh) rotate(360deg); opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container hug" id="animationContainer">
+    <img src="https://i.ibb.co/tMXhLHBK/Captura-de-tela-2025-06-01-151718.png" class="character left" id="leftChar">
+    <img src="https://i.ibb.co/7tT3y62t/Imagem-do-Whats-App-de-2025-06-01-s-15-13-05-b56ff05d.jpg" class="character right" id="rightChar">
+    <div class="title" id="titleText"></div>
+    <div class="subtitle">Soares & Helô Forever!</div>
+    <button class="enter-button" onclick="abrirModal()">AMAR</button>
+  </div>
+
+  <!-- Modal -->
+  <div class="modal" id="modal">
+    <div class="modal-content">
+      <h2>Quem está amando?</h2>
+      <button onclick="responder('Helô')">Helô</button>
+      <button onclick="responder('Soares')">Soares</button>
+    </div>
+  </div>
+
+  <!-- Som de digitação -->
+  <audio id="typeSound" src="https://youtu.be/EBINIG--8BE" preload="auto"></audio>
+
+  <script>
+    const siteName = "01.06.2025";
+    const titleElement = document.getElementById("titleText");
+    const sound = document.getElementById("typeSound");
+
+    function typeEffect(text, i = 0) {
+      if (i < text.length) {
+        titleElement.textContent += text.charAt(i);
+        sound.currentTime = 0;
+        sound.play();
+        setTimeout(() => typeEffect(text, i + 1), 150);
+      }
+    }
+
+    function abrirModal() {
+      document.getElementById("modal").style.display = "flex";
+    }
+
+    function responder(nome) {
+      document.getElementById("modal").style.display = "none";
+      startHeartRain();
+
+      fetch("/registrar", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ nome, data: new Date().toISOString() })
+      }).catch(console.error);
+    }
+
+    function createHeart() {
+      const heart = document.createElement("div");
+      heart.classList.add("heart");
+      heart.style.left = Math.random() * window.innerWidth + "px";
+      heart.style.animationDuration = (3 + Math.random() * 5) + "s";
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 8000);
+    }
+
+    function startHeartRain() {
+      setInterval(createHeart, 200);
+    }
+
+    window.onload = function () {
+      setTimeout(() => {
+        document.getElementById('animationContainer').classList.add('hug');
+      }, 500);
+
+      setTimeout(() => {
+        titleElement.style.opacity = 1;
+        typeEffect(siteName);
+      }, 2000);
+    };
+  </script>
+</body>
+</html>
